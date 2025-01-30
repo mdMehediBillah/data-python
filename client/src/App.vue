@@ -1,86 +1,115 @@
 <template>
   <div>
-    <h1>Data Table</h1>
+    <h1 class="text-3xl font-bold underline">Data Viewer</h1>
 
-    <!-- Country Filter Dropdown -->
-    <label for="country">Filter by Country:</label>
-    <select @change="filterByCountry($event.target.value)">
-      <option value="">All Countries</option>
-      <option v-for="country in getCountries" :key="country" :value="country">
-        {{ country }}
-      </option>
-    </select>
+    <!-- Loading Spinner -->
+    <div v-if="isLoading" class="loading-spinner">
+      <div class="spinner"></div>
+      <p class="loadingText">Loading...</p>
+    </div>
 
-    <table>
-      <thead>
-        <tr>
-          <th v-for="column in columns" :key="column">{{ column }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(row, index) in filteredData" :key="index">
-          <td v-for="(value, key) in row" :key="key">
-            {{ value !== null && value !== undefined ? value : "N/A" }}
-          </td>
-          <!-- <td v-for="(value, key) in row" :key="key">{{ value }}</td> -->
-        </tr>
-      </tbody>
-    </table>
+    <!-- Navigation Menu -->
+    <nav class="nav-menu">
+      <button
+        @click="$router.push('/all-data')"
+        :class="['nav-button', { 'active-link': isActive('/all-data') }]"
+      >
+        All Data
+      </button>
+      <button
+        @click="$router.push('/filtered-data')"
+        :class="['nav-button', { 'active-link': isActive('/filtered-data') }]"
+      >
+        Filtered Data
+      </button>
+    </nav>
+
+    <!-- This will render the selected route's component -->
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
-  computed: {
-    ...mapState(["columns", "selectedCountry"]),
-    ...mapGetters(["getFilteredData", "getCountries"]),
-    filteredData() {
-      return this.getFilteredData;
-    },
-    countries() {
-      return this.getCountries;
+  methods: {
+    ...mapActions(["fetchData"]),
+
+    // Method to check if the route is active
+    isActive(route) {
+      return this.$route.path === route;
     },
   },
-  methods: {
-    ...mapActions(["fetchData", "fetchCountries", "updateSelectedCountry"]),
-    filterByCountry() {
-      this.updateSelectedCountry(this.selectedCountry);
-    },
+  computed: {
+    ...mapGetters(["isLoading"]),
   },
   mounted() {
-    this.fetchData();
-    this.fetchCountries();
+    this.fetchData(); // Fetch data when the app loads
   },
 };
 </script>
 
-<style>
-/* Add some basic styling */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
+<style scoped>
+/* Loading spinner style */
+.loading-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  font-size: 1.2rem;
+  color: #ff0000;
 }
-th,
-td {
-  border: 1px solid #ddd;
-  padding: 0.6rem;
-  text-align: left;
-  font-size: 0.8rem;
+
+.spinner {
+  border: 5px solid #f3f3f3; /* Light gray */
+  border-top: 5px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 2s linear infinite;
 }
-th {
-  background-color: #242424;
-  color: rgb(255, 217, 0);
-  font-size: 0.8rem;
+
+.loadingText {
+  color: yellowgreen;
 }
-label {
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.nav-menu {
+  display: flex;
+  gap: 10px;
+  margin: 20px auto;
+  justify-content: center;
+}
+
+.nav-button {
+  padding: 10px 15px;
+  background-color: #074225;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.nav-button:hover {
+  background-color: #066435;
+  transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+/* Active Button Style */
+.active-link {
+  background-color: #28a745; /* Change active color */
+  color: white;
   font-weight: bold;
-  margin-right: 10px;
-}
-select {
-  padding: 5px;
-  font-size: 16px;
+  border: none;
 }
 </style>

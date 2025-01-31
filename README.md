@@ -12,7 +12,7 @@ Pagination for large datasets
 Row click to open a detailed modal
 
 🖼️ Screenshot
-!(https://github.com/mdMehediBillah/data-python/blob/main/Screenshot.png?raw=true)
+(https://github.com/mdMehediBillah/data-python/blob/main/Screenshot.png?raw=true)
 
 🚀 Features
 ✅ Flask API – Serves data from the backend
@@ -35,27 +35,6 @@ Flask-CORS (Cross-Origin Resource Sharing)
 SQLite / PostgreSQL (Database for storing data)
 Flask-RESTful (API development)
 
-📂 Project Structure
-
-📦 project/
-┣ 📂 server/ # Flask Backend
-┃ ┣ 📜 app.py # Main Flask app
-┃ ┣ 📜 database.py # Database models & setup
-┃ ┣ 📜 routes.py # API Routes
-┃ ┣ 📜 requirements.txt # Python dependencies
-┃ ┗ 📂 data/ # Sample dataset
-┣ 📂 client/ # Vue.js Frontend
-┃ ┣ 📂 src/
-┃ ┃ ┣ 📂 components/
-┃ ┃ ┃ ┣ 📜 AllData.vue # Main data table
-┃ ┃ ┃ ┣ 📜 FilteredData.vue # Filtered table with pagination
-┃ ┃ ┃ ┣ 📜 DetailModal.vue # Reusable modal for row details
-┃ ┃ ┃ ┣ 📜 store.js # Vuex store for state management
-┃ ┣ 📜 App.vue # Root component
-┃ ┣ 📜 main.js # Vue entry file
-┣ 📜 package.json # Frontend dependencies
-┣ 📜 README.md # Documentation
-┗ 📜 .gitignore
 
 📝 TODO & Future Enhancements
 ✅ Add CSV/Excel Export functionality

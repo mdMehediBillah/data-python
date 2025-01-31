@@ -34,7 +34,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="row in paginatedData" :key="row.country">
+          <tr
+            v-for="row in paginatedData"
+            :key="row.country"
+            @click="openDetailModal(row)"
+          >
             <td v-for="col in selectedColumns" :key="col" class="allDataBody">
               {{ row[col] }}
             </td>
@@ -51,17 +55,30 @@
         Next
       </button>
     </div>
+
+    <!-- Modal for row details -->
+    <CountryDetailModal
+      :isOpen="isModalOpen"
+      :countryData="selectedRow"
+      @close="closeDetailModal"
+    />
   </div>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from "vuex";
+import CountryDetailModal from "./CountryDetailModal.vue";
 
 export default {
+  components: {
+    CountryDetailModal,
+  },
   data() {
     return {
       currentPage: 1, // Tracks current page
       rowsPerPage: 10, // Number of rows per page
+      isModalOpen: false, // Controls modal visibility
+      selectedRow: null, // Stores the selected row data for modal
     };
   },
   computed: {
@@ -90,7 +107,7 @@ export default {
     },
 
     countryList() {
-      return ["All", ...new Set(this.getAllData.map((row) => row.country))];
+      return [...new Set(this.getAllData.map((row) => row.country))].sort();
     },
 
     // **Pagination Logic**
@@ -114,6 +131,23 @@ export default {
     nextPage() {
       if (this.currentPage < this.totalPages) this.currentPage++;
     },
+    openDetailModal(row) {
+      this.selectedRow = row;
+      this.isModalOpen = true;
+    },
+    closeDetailModal() {
+      this.isModalOpen = false;
+      this.selectedRow = null;
+    },
+  },
+  watch: {
+    isModalOpen(newValue) {
+      if (newValue) {
+        document.body.style.overflow = "hidden"; // Disable background scrolling
+      } else {
+        document.body.style.overflow = ""; // Restore scrolling when modal closes
+      }
+    },
   },
 };
 </script>
@@ -131,7 +165,7 @@ export default {
   padding: 8px 12px;
   margin: 0 5px;
   cursor: pointer;
-  background-color: #0449a3;
+  background-color: rgb(6, 108, 121);
   color: white;
   border: none;
   border-radius: 4px;
@@ -154,12 +188,12 @@ export default {
   font-size: 16px;
 }
 .allDataHeader {
-  background-color: rgb(117, 6, 121);
+  background-color: rgb(6, 108, 121);
   color: white;
   font-size: 0.9rem;
   font-weight: bold;
   text-align: center;
-  padding: 0.4rem;
+  padding: 0.8rem 1rem;
   max-width: 160px; /* Adjust as needed */
   white-space: nowrap; /* Prevent text from wrapping */
   overflow: hidden;

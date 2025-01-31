@@ -5,27 +5,30 @@
     <!-- Loading Spinner -->
     <div v-if="isLoading" class="loading-spinner">
       <div class="spinner"></div>
-      <p class="loadingText">Loading...</p>
+      <div>
+        <span class="loadingText">Loading...</span>
+      </div>
     </div>
 
-    <!-- Navigation Menu -->
-    <nav class="nav-menu">
-      <button
-        @click="$router.push('/all-data')"
-        :class="['nav-button', { 'active-link': isActive('/all-data') }]"
-      >
-        All Data
-      </button>
-      <button
-        @click="$router.push('/filtered-data')"
-        :class="['nav-button', { 'active-link': isActive('/filtered-data') }]"
-      >
-        Filtered Data
-      </button>
-    </nav>
-
-    <!-- This will render the selected route's component -->
-    <router-view></router-view>
+    <div v-if="!isLoading">
+      <!-- Navigation Menu -->
+      <nav class="nav-menu">
+        <button
+          @click="$router.push('/all-data')"
+          :class="['nav-button', { 'active-link': isActive('/all-data') }]"
+        >
+          All Data
+        </button>
+        <button
+          @click="$router.push('/filtered-data')"
+          :class="['nav-button', { 'active-link': isActive('/filtered-data') }]"
+        >
+          Filtered Data
+        </button>
+      </nav>
+      <!-- This will render the selected route's component -->
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -54,11 +57,14 @@ export default {
 /* Loading spinner style */
 .loading-spinner {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100px;
+  margin-top: 100px;
+  gap: 10px;
+  /* height: 100px; */
   font-size: 1.2rem;
-  color: #ff0000;
+  /* color: #ff0000; */
 }
 
 .spinner {

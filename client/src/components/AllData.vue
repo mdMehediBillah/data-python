@@ -21,10 +21,12 @@
         <label>Sort by</label>
         <select v-model="sortKey" class="select-sort">
           <option value="none">None</option>
-          <option value="flowName">Flow Name</option>
-          <option value="processName">Process Name</option>
+          <!-- <option value="flowName">Flow Name</option> -->
+          <!-- <option value="processName">Process Name</option> -->
           <option value="carbonContent">Carbon Content</option>
-          <option value="globalWarmingPotential">
+          <option
+            value="Carbon Minds ISO 14067 (based on IPCC 2021) - climate change - global warming potential (GWP100) [kg CO2-Eq]"
+          >
             Global Warming Potential
           </option>
         </select>
@@ -46,7 +48,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="row in paginatedData" :key="row.id">
+          <tr
+            v-for="row in paginatedData"
+            :key="row.id"
+            @click="openDetailModal(row)"
+          >
             <td
               v-for="col in columns"
               :key="col"
@@ -68,19 +74,32 @@
         Next
       </button>
     </div>
+
+    <!-- Modal for row details -->
+    <CountryDetailModal
+      :isOpen="isModalOpen"
+      :countryData="selectedRow"
+      @close="closeDetailModal"
+    />
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import CountryDetailModal from "./CountryDetailModal.vue";
 
 export default {
+  components: {
+    CountryDetailModal,
+  },
   data() {
     return {
       selectedCountry: "",
       sortKey: "none",
       currentPage: 1,
       rowsPerPage: 10, // Adjust number of rows per page
+      isModalOpen: false, // Modal visibility state
+      selectedRow: null, // Stores the selected row data for modal
     };
   },
   computed: {
@@ -141,6 +160,23 @@ export default {
     nextPage() {
       if (this.currentPage < this.totalPages) this.currentPage++;
     },
+    openDetailModal(row) {
+      this.selectedRow = row;
+      this.isModalOpen = true;
+    },
+    closeDetailModal() {
+      this.isModalOpen = false;
+      this.selectedRow = null;
+    },
+  },
+  watch: {
+    isModalOpen(newValue) {
+      if (newValue) {
+        document.body.style.overflow = "hidden"; // Disable background scrolling
+      } else {
+        document.body.style.overflow = ""; // Restore scrolling when modal closes
+      }
+    },
   },
 };
 </script>
@@ -158,7 +194,7 @@ export default {
   padding: 8px 12px;
   margin: 0 5px;
   cursor: pointer;
-  background-color: #0449a3;
+  background-color: rgb(6, 108, 121);
   color: white;
   border: none;
   border-radius: 4px;
@@ -177,7 +213,7 @@ export default {
 }
 
 .allDataHeader {
-  background-color: rgb(38, 23, 87);
+  background-color: rgb(6, 108, 121);
   color: white;
   font-size: 0.8rem;
   font-weight: bold;

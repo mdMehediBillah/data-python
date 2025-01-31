@@ -12,7 +12,7 @@ Pagination for large datasets
 Row click to open a detailed modal
 
 🖼️ Screenshot
-[(https://github.com/mdMehediBillah/data-python/blob/main/Screenshot.png?raw=true)](https://github.com/mdMehediBillah/data-python/blob/main/Screenshot.png?raw=true)
+https://github.com/mdMehediBillah/data-python/blob/main/Screenshot.png?raw=true
 
 🚀 Features
 ✅ Flask API – Serves data from the backend

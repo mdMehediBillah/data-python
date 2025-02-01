@@ -1,12 +1,16 @@
 import { createStore } from "vuex";
+import analytics from "./analytics"; // Import analytics module
 import axios from "axios";
 import config from "../config";
 
 const store = createStore({
+  modules: {
+    analytics, // ✅ Register analytics store
+  },
   state: {
-    data: [], // Stores all data from API
-    filteredData: [], // Stores selected data
-    columns: [], // All available columns
+    data: [],
+    filteredData: [],
+    columns: [],
     selectedColumns: [
       "country",
       "flowName",
@@ -17,11 +21,11 @@ const store = createStore({
       "Carbon Minds ISO 14067 (based on IPCC 2021) - climate change: biogenic emissions - global warming potential (GWP100) [kg CO2-Eq]",
       "Carbon Minds ISO 14067 (based on IPCC 2021) - climate change: biogenic removal - global warming potential (GWP100) [kg CO2-Eq]",
     ],
-    countries: [], // List of countries
-    selectedCountry: "", // Selected country for filtering
-    selectedRow: null, // Stores clicked row details
-    sortOrder: "asc", // 🔄 Sorting order: 'asc' or 'desc'
-    loading: false, // Track the loading state
+    countries: [],
+    selectedCountry: "",
+    selectedRow: null,
+    sortOrder: "asc",
+    loading: false,
   },
 
   mutations: {
@@ -30,9 +34,7 @@ const store = createStore({
 
       const { data, columns } = payload;
 
-      // Set loading state to false after data is fetched
       state.loading = false;
-
       if (!data || !columns) {
         console.error("Missing data or columns in payload");
         return;
@@ -58,10 +60,6 @@ const store = createStore({
 
       console.log("Stored All Data:", state.data);
       console.log("Stored Filtered Data:", state.filteredData);
-
-      // Apply sorting
-      // state.data.sort((a, b) => (a.country > b.country ? 1 : -1));
-      // state.filteredData.sort((a, b) => (a.country > b.country ? 1 : -1));
     },
 
     setSelectedCountry(state, country) {
@@ -93,7 +91,7 @@ const store = createStore({
 
     // Sort data based on selected key and order
     sortData(state, { key, order }) {
-      if (order === "none") return; // No sorting applied
+      if (order === "none") return;
 
       state.data.sort((a, b) => {
         let valA = a[key] ?? "";
@@ -106,32 +104,30 @@ const store = createStore({
           valB = parseFloat(valB) || 0;
         }
 
-        if (order === "asc") {
-          return valA > valB ? 1 : valA < valB ? -1 : 0;
-        } else if (order === "desc") {
-          return valA < valB ? 1 : valA > valB ? -1 : 0;
-        }
-        return 0;
+        return order === "asc" ? (valA > valB ? 1 : -1) : valA < valB ? 1 : -1;
       });
     },
   },
 
   actions: {
-    async fetchData({ commit }) {
+    async fetchData({ commit, dispatch }) {
       try {
-        // Set loading to true before fetching data
         commit("setLoading", true);
 
         const response = await axios.get(`${config.API_BASE_URL}/data`);
 
         if (response.data && response.data.data && response.data.columns) {
           commit("setData", response.data);
+
+          // ✅ Dispatch analytics update **AFTER** setting data
+          dispatch("analytics/analyzeCountryData", response.data.data);
         } else {
           console.error("Invalid data format received:", response.data);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
-        commit("setLoading", false); // Stop loading if there is an error
+      } finally {
+        commit("setLoading", false);
       }
     },
   },
@@ -144,7 +140,8 @@ const store = createStore({
     getCountries: (state) => state.countries,
     getSelectedRow: (state) => state.selectedRow,
     getSortOrder: (state) => state.sortOrder,
-    isLoading: (state) => state.loading, // Get loading state
+    isLoading: (state) => state.loading,
+    getSelectedCountry: (state) => state.selectedCountry,
   },
 });
 

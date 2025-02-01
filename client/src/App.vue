@@ -1,41 +1,29 @@
 <template>
   <div>
-    <h1 class="text-3xl font-bold underline">Data Viewer</h1>
+    <Header />
 
-    <!-- Loading Spinner -->
     <div v-if="isLoading" class="loading-spinner">
       <div class="spinner"></div>
-      <div>
-        <span class="loadingText">Loading...</span>
-      </div>
+      <div class="loadingText">Loading...</div>
     </div>
-
     <div v-if="!isLoading">
-      <!-- Navigation Menu -->
-      <nav class="nav-menu">
-        <button
-          @click="$router.push('/all-data')"
-          :class="['nav-button', { 'active-link': isActive('/all-data') }]"
-        >
-          All Data
-        </button>
-        <button
-          @click="$router.push('/filtered-data')"
-          :class="['nav-button', { 'active-link': isActive('/filtered-data') }]"
-        >
-          Filtered Data
-        </button>
-      </nav>
       <!-- This will render the selected route's component -->
       <router-view></router-view>
     </div>
+    <FooterCom />
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import Header from "./components/Header.vue";
+import FooterCom from "./components/FooterCom.vue";
 
 export default {
+  components: {
+    Header,
+    FooterCom,
+  },
   methods: {
     ...mapActions(["fetchData"]),
 
@@ -62,9 +50,7 @@ export default {
   justify-content: center;
   margin-top: 100px;
   gap: 10px;
-  /* height: 100px; */
   font-size: 1.2rem;
-  /* color: #ff0000; */
 }
 
 .spinner {
@@ -87,35 +73,5 @@ export default {
   100% {
     transform: rotate(360deg);
   }
-}
-
-.nav-menu {
-  display: flex;
-  gap: 10px;
-  margin: 20px auto;
-  justify-content: center;
-}
-
-.nav-button {
-  padding: 10px 15px;
-  background-color: #074225;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.nav-button:hover {
-  background-color: #066435;
-  transform: scale(1.05); /* Slight zoom effect on hover */
-}
-
-/* Active Button Style */
-.active-link {
-  background-color: #28a745; /* Change active color */
-  color: white;
-  font-weight: bold;
-  border: none;
 }
 </style>

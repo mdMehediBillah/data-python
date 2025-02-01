@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="pb-16">
     <div class="container-header">
       <div>
-        <h2>Filtered Data</h2>
+        <h3 class="text-3xl bold">Filtered Data</h3>
       </div>
       <div>
         <label>Filter Country:</label>
@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <div>
+    <div class="table-wrapper">
       <table>
         <thead>
           <tr>
@@ -99,7 +99,7 @@ export default {
 
     selectedCountry: {
       get() {
-        return this.getSelectedCountry;
+        return this.getSelectedCountry || "All"; // Set default to "All" if empty
       },
       set(value) {
         this.setSelectedCountry(value);
@@ -107,7 +107,10 @@ export default {
     },
 
     countryList() {
-      return [...new Set(this.getAllData.map((row) => row.country))].sort();
+      return [
+        "All",
+        ...new Set(this.getAllData.map((row) => row.country)),
+      ].sort();
     },
 
     // **Pagination Logic**
@@ -157,22 +160,24 @@ export default {
 .pagination {
   display: flex;
   justify-content: center;
+  gap: 1rem;
   align-items: center;
   margin-top: 2rem;
+  padding-bottom: 3rem;
 }
 
 .pagination button {
   padding: 8px 12px;
   margin: 0 5px;
   cursor: pointer;
-  background-color: rgb(6, 108, 121);
+  background-color: var(--color-primary);
   color: white;
   border: none;
   border-radius: 4px;
 }
 
 .pagination button:disabled {
-  background-color: gray;
+  background-color: rgb(161, 193, 206);
   cursor: not-allowed;
 }
 
@@ -181,14 +186,19 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 3rem 0 1rem;
 }
 .select-country {
   margin: 10px;
-  padding: 5px;
+  padding: 0.6rem 0.8rem;
   font-size: 16px;
+  background-color: var(--color-brand-light);
+  border-radius: 0.4rem;
 }
 .allDataHeader {
-  background-color: rgb(6, 108, 121);
+  background-color: var(--color-primary);
   color: white;
   font-size: 0.9rem;
   font-weight: bold;
@@ -203,14 +213,25 @@ export default {
 .allDataBody {
   text-align: left;
   font-size: 0.9rem;
-  padding: 0.2rem;
-  max-width: 160px; /* Adjust as needed */
-  /* white-space: nowrap; Prevent text from wrapping */
+  padding: 0.4rem;
+  max-width: 160px;
   overflow: hidden;
-  text-overflow: ellipsis; /* Add "..." for overflow text */
+  text-overflow: ellipsis;
   text-align: center;
+  color: var(--color-text-dark);
 }
 tr:nth-child(even) {
-  background-color: #3d3d3d;
+  background-color: #bfced1;
+}
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  padding: 5px;
+  background-color: var(--color-bg-light);
+  padding: 0.4rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 1280px;
+  margin: 0 auto;
 }
 </style>

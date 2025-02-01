@@ -32,7 +32,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6); /* Dark transparent background */
+  background: rgba(0, 0, 0, 0.7); /* Dark transparent background */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,8 +41,8 @@ export default {
 
 /* ⚪ Modal Content */
 .modal-content {
-  background: white;
-  color: #064b79;
+  background-color: var(--color-bg-light);
+  color: var(--color-text-dark);
   text-align: left;
   width: 90%; /* Adjust width */
   max-width: 1400px; /* Limit maximum width */
@@ -59,7 +59,7 @@ export default {
   font-weight: bold;
   text-align: center;
   padding: 0.4rem 1rem;
-  color: rgb(37, 37, 37);
+  color: var(--color-brand);
   width: 100%;
   margin: 0 auto;
   border-bottom: 2px solid #0543a0;
@@ -94,8 +94,8 @@ export default {
 .close-button {
   display: block;
   width: 100%;
-  background-color: #e74c3c;
-  color: white;
+  background-color: var(--color-cta);
+  color: var(--color-bg-light);
   border: none;
   padding: 10px;
   font-size: 1rem;

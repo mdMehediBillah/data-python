@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Visualization</title>
+    <style>
+      table {
+        width: 80%;
+        margin: 20px auto;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+      }
+      th {
+        background-color: #f4f4f4;
+      }
+      img {
+        display: block;
+        margin: 20px auto;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 style="text-align: center">Data Table and Visualization</h1>
+    <table>
+      <thead>
+        <tr>
+          {% for col in columns %}
+          <th>{{ col }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in data %}
+        <tr>
+          {% for cell in row %}
+          <td>{{ cell }}</td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <img src="data:image/png;base64,{{ graph_url }}" alt="Graph" />
+  </body>
+</html>

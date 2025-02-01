@@ -1,35 +1,37 @@
 <template>
-  <div>
+  <div class="pb-40 h-[100vh]">
     <div class="container-header">
       <div>
-        <h2>All Data</h2>
+        <h3 class="text-3xl bold">All Data</h3>
       </div>
-      <div>
-        <label>Filter Country:</label>
-        <select v-model="selectedCountry" class="select-country">
-          <option value="">All</option>
-          <option
-            v-for="country in countryList"
-            :key="country"
-            :value="country"
-          >
-            {{ country }}
-          </option>
-        </select>
-      </div>
-      <div>
-        <label>Sort by</label>
-        <select v-model="sortKey" class="select-sort">
-          <option value="none">None</option>
-          <!-- <option value="flowName">Flow Name</option> -->
-          <!-- <option value="processName">Process Name</option> -->
-          <option value="carbonContent">Carbon Content</option>
-          <option
-            value="Carbon Minds ISO 14067 (based on IPCC 2021) - climate change - global warming potential (GWP100) [kg CO2-Eq]"
-          >
-            Global Warming Potential
-          </option>
-        </select>
+      <div class="country-filter-container">
+        <div>
+          <label>Filter Country:</label>
+          <select v-model="selectedCountry" class="select-country">
+            <option value="">All</option>
+            <option
+              v-for="country in countryList"
+              :key="country"
+              :value="country"
+            >
+              {{ country }}
+            </option>
+          </select>
+        </div>
+        <div>
+          <label>Sort by</label>
+          <select v-model="sortKey" class="select-sort">
+            <option value="none">None</option>
+            <!-- <option value="flowName">Flow Name</option> -->
+            <!-- <option value="processName">Process Name</option> -->
+            <option value="carbonContent">Carbon Content</option>
+            <option
+              value="Carbon Minds ISO 14067 (based on IPCC 2021) - climate change - global warming potential (GWP100) [kg CO2-Eq]"
+            >
+              Global Warming Potential
+            </option>
+          </select>
+        </div>
       </div>
     </div>
 
@@ -182,26 +184,34 @@ export default {
 </script>
 
 <style scoped>
+.country-filter-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
 /* Pagination Styling */
 .pagination {
   display: flex;
   justify-content: center;
+  gap: 1rem;
   align-items: center;
   margin-top: 2rem;
+  padding-bottom: 3rem;
 }
 
 .pagination button {
   padding: 8px 12px;
   margin: 0 5px;
   cursor: pointer;
-  background-color: rgb(6, 108, 121);
+  background-color: var(--color-primary);
   color: white;
   border: none;
   border-radius: 4px;
 }
 
 .pagination button:disabled {
-  background-color: gray;
+  background-color: rgb(161, 193, 206);
   cursor: not-allowed;
 }
 
@@ -210,19 +220,19 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 3rem 0 1rem;
 }
 
 .allDataHeader {
-  background-color: rgb(6, 108, 121);
+  background-color: var(--color-primary);
   color: white;
   font-size: 0.8rem;
   font-weight: bold;
   text-align: center;
   padding: 0.8rem 1rem;
   max-width: 160px;
-  /* white-space: nowrap; */
-  /* overflow: hidden; */
-  /* text-overflow: ellipsis; */
   line-clamp: 2;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -233,27 +243,34 @@ export default {
   text-align: left;
   font-size: 0.8rem;
   padding: 0.8rem 1rem;
-  white-space: nowrap; /* ✅ Prevents wrapping */
-  overflow: hidden; /* ✅ Hides overflow */
-  text-overflow: ellipsis; /* ✅ Adds "..." for long text */
-  max-width: 160px; /* ✅ Set a fixed width to see effect */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px;
   margin-inline: 3px;
   text-align: center;
+  color: var(--color-text-dark);
 }
 
 .select-country {
   margin: 10px;
-  padding: 5px;
+  padding: 0.6rem 0.8rem;
   font-size: 16px;
+  background-color: var(--color-brand-light);
+  border-radius: 0.4rem;
 }
 
 .table-wrapper {
   width: 100%;
   overflow-x: auto;
-  max-height: 600px;
   /* border: 1px solid #ddd; */
-  border-radius: 8px;
   padding: 5px;
+  background-color: var(--color-bg-light);
+  padding: 0.4rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
 table {
@@ -277,12 +294,14 @@ td {
 }
 
 tr:nth-child(even) {
-  background-color: #3d3d3d;
+  background-color: #bfced1;
 }
 
 .select-sort {
   margin-left: 10px;
-  padding: 5px;
+  padding: 0.6rem 0.8rem;
   font-size: 14px;
+  background-color: var(--color-brand-light);
+  border-radius: 0.4rem;
 }
 </style>

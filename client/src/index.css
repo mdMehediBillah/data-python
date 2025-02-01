@@ -1,61 +1,27 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+/* ✅ Custom CSS */
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* Primary Colors */
+  --color-primary: rgb(18, 109, 116);
+  --color-secondary: #6e3b3b;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* Call-To-Action (CTA) */
+  --color-cta: #dd4913;
+  --color-cta-hover: #b9461d;
+  --color-cta-inactive: #eaf9ff;
+  --color-cta-active: #f54708;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  /* Brand Colors */
+  --color-brand: #dd4913;
+  --color-brand-light: rgb(14, 75, 80);
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
+  /* Text Colors */
+  --color-text-dark: #333333;
+  --color-text-light: #f0f0f0;
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  /* Background Colors */
+  --color-bg-light: #e9e9e9;
+  --color-bg-dark: #1d1d1d;
+  --color-bg-footer-dark: rgb(14, 36, 65);
 }
 
 .card {
@@ -63,21 +29,57 @@ button:focus-visible {
 }
 
 #app {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  /* padding: 2rem; */
   text-align: center;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+/* ✅ Example Usage */
+
+body {
+  background: rgb(2, 0, 36);
+  background: linear-gradient(90deg, #08b3e5 0%, #0f97ac 35%, #1bc091 100%);
+  color: var(--color-text-light);
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  margin: 0;
+  /* min-width: 320px; */
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+  margin-bottom: 1em;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 1.6em;
+  line-height: 1.1;
+  font-weight: 700;
+  text-align: left;
+}
+
+.button-primary {
+  background-color: var(--color-primary);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.button-secondary {
+  background-color: var(--color-secondary);
+  color: white;
+}
+
+.button-cta {
+  background-color: var(--color-cta);
+  color: white;
+}
+
+table {
+  width: 100%;
+  margin: auto;
 }

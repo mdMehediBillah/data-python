@@ -1,6 +1,6 @@
 <template>
   <div v-if="isOpen" class="modal-overlay" @click="closeModal">
-    <div class="modal-content" @click.stop>
+    <div class="modal-content" @click.stop ref="modalContainer">
       <h3>Details for {{ countryData?.country }}</h3>
       <div v-for="(value, key) in countryData" :key="key" class="detail-row">
         <strong>{{ key }}:</strong> {{ value }}
@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import gsap from "gsap";
+
 export default {
   props: {
     isOpen: Boolean, // Controls modal visibility
@@ -19,6 +21,29 @@ export default {
   methods: {
     closeModal() {
       this.$emit("close"); // Emit event to parent to close modal
+      // Optionally, add animation on close (if needed)
+      gsap.to(this.$refs.modalContainer, {
+        opacity: 0,
+        scale: 0.5,
+        duration: 0.6,
+        ease: "power4.out",
+      });
+    },
+    animatePageElements() {
+      const tl = gsap.timeline();
+      tl.from(this.$refs.modalContainer, {
+        opacity: 0,
+        scale: 0.5,
+        duration: 1,
+        ease: "power4.out",
+      });
+    },
+  },
+  watch: {
+    isOpen(newValue) {
+      if (newValue) {
+        this.animatePageElements(); // Trigger animation when modal opens
+      }
     },
   },
 };

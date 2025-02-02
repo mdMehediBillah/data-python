@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  flask:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    container_name: flask_app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - vue
+    environment:
+      - FLASK_ENV=development
+      - FLASK_APP=server/app.py
+    networks:
+      - app_network
+
+  vue:
+    build:
+      context: ./client # Ensure it points to the client directory
+      dockerfile: Dockerfile
+    volumes:
+      - ./client:/app
+    ports:
+      - "5173:5173"
+
+networks:
+  app_network:
+    driver: bridge

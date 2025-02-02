@@ -1,15 +1,16 @@
 <template>
   <div>
-    <div class="chart-header">
+    <div class="chart-header" ref="barChartHeader">
       <h3 class="text-3xl bold">Countries Data Count</h3>
     </div>
-    <div class="chart-container">
+    <div class="chart-container" ref="barChartContainer">
       <canvas ref="canvas"></canvas>
     </div>
   </div>
 </template>
 
 <script>
+import gsap from "gsap";
 import { Chart, registerables } from "chart.js";
 import { mapGetters } from "vuex";
 import { nextTick } from "vue";
@@ -95,8 +96,32 @@ export default {
         },
       });
     },
+    animatePageElements() {
+      const tl = gsap.timeline();
+      // Animate header fade-in
+      tl.from(this.$refs.barChartHeader, {
+        opacity: 0,
+        x: 100,
+        duration: 0.8,
+        ease: "power4.out",
+      });
+      // Animate the table wrapper element with overlap
+      tl.from(
+        this.$refs.barChartContainer,
+        {
+          opacity: 0,
+          x: 20,
+          duration: 0.8,
+          ease: "power4.out",
+        },
+        "-=0.5"
+      );
+    },
   },
+
   mounted() {
+    // Trigger animation after the component is mounted
+    this.animatePageElements();
     this.renderChart();
   },
   beforeUnmount() {

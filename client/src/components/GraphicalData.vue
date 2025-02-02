@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pb-40 min-h-[100vh]">
     <!-- Loading spinner -->
     <div v-if="isLoading" class="loading-spinner">
       <div class="spinner"></div>

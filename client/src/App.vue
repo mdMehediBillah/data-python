@@ -63,7 +63,7 @@ export default {
 }
 
 .loadingText {
-  color: yellowgreen;
+  color: rgb(233, 251, 255);
 }
 
 @keyframes spin {

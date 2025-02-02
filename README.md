@@ -12,7 +12,7 @@ Pagination for large datasets
 Row click to open a detailed modal
 
 🖼️ Screenshot
-!(https://github.com/mdMehediBillah/data-python/blob/main/Screenshot.png?raw=true)
+https://github.com/mdMehediBillah/data-python/blob/main/Screenshot.png?raw=true
 
 🚀 Features
 ✅ Flask API – Serves data from the backend
@@ -55,6 +55,7 @@ Flask-RESTful (API development)
 ┣ 📜 package.json # Frontend dependencies
 ┣ 📜 README.md # Documentation
 ┗ 📜 .gitignore
+
 
 📝 TODO & Future Enhancements
 ✅ Add CSV/Excel Export functionality

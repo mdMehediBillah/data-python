@@ -5,22 +5,24 @@
     <div class="home-text">
       <div>
         <h1
+          ref="title"
           class="lg:text-[4rem] font-[300] pb-6 md:pb-4 md:text-[3rem] sm:text-[2rem] p-4"
         >
           Good decisions come from good data
         </h1>
-        <p>
+        <p ref="description">
           Carbon Minds provides the world’s largest environmental life cycle
           database for chemicals and plastics, empowering companies to make
           informed decisions that reduce environmental impacts.
         </p>
       </div>
-      <div>
+      <div ref="ctaButton">
         <router-link to="/all-data" class="nav-button">Take ride</router-link>
       </div>
     </div>
     <div>
       <img
+        ref="image"
         src="../assets/project-overview.png"
         alt="overview photo"
         class="homePhoto"
@@ -28,6 +30,57 @@
     </div>
   </div>
 </template>
+
+<script>
+import gsap from "gsap";
+
+export default {
+  mounted() {
+    this.animateElements();
+  },
+  methods: {
+    animateElements() {
+      const tl = gsap.timeline();
+
+      // Title animation: Fade and slide in
+      tl.from(this.$refs.title, {
+        opacity: 0,
+        y: -50,
+        duration: 0.8,
+        ease: "power4.out",
+      });
+
+      // Description animation: Fade in
+      tl.from(
+        this.$refs.description,
+        { opacity: 0, duration: 0.5, y: 20, ease: "power4.out" },
+        "-=0.5"
+      );
+
+      // Button animation: Scale and fade in
+      tl.from(
+        this.$refs.ctaButton,
+        {
+          opacity: 0,
+          scale: 0.2,
+          y: 50,
+          duration: 0.8,
+          ease: "back.out(1.7)",
+        },
+        "-=0.5"
+      );
+
+      // Image animation: Slide in from the right
+      tl.from(
+        this.$refs.image,
+        { opacity: 0, x: 50, duration: 0.6, ease: "power4.out" },
+        "-=0.5"
+      );
+    },
+  },
+};
+</script>
+
 <style scoped>
 .home-container {
   padding: 6rem 0;

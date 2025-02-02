@@ -1,6 +1,6 @@
 <template>
-  <div class="pb-16">
-    <div class="container-header">
+  <div class="pb-40 min-h-[100vh]">
+    <div class="container-header" ref="header">
       <div>
         <h3 class="text-3xl bold">Filtered Data</h3>
       </div>
@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <div class="table-wrapper">
+    <div class="table-wrapper" ref="tableWrapper">
       <table>
         <thead>
           <tr>
@@ -48,7 +48,7 @@
     </div>
 
     <!-- Pagination Controls -->
-    <div class="pagination">
+    <div class="pagination" ref="pagination">
       <button @click="prevPage" :disabled="currentPage === 1">Previous</button>
       <span>Page {{ currentPage }} of {{ totalPages }}</span>
       <button @click="nextPage" :disabled="currentPage >= totalPages">
@@ -66,6 +66,7 @@
 </template>
 
 <script>
+import gsap from "gsap";
 import { mapGetters, mapMutations } from "vuex";
 import CountryDetailModal from "./CountryDetailModal.vue";
 
@@ -142,6 +143,41 @@ export default {
       this.isModalOpen = false;
       this.selectedRow = null;
     },
+    animatePageElements() {
+      const tl = gsap.timeline();
+      // Animate header fade-in
+      tl.from(this.$refs.header, {
+        opacity: 0,
+        y: -20,
+        duration: 0.8,
+        ease: "power4.out",
+      });
+      // Animate the table wrapper element with overlap
+      tl.from(
+        this.$refs.tableWrapper,
+        {
+          opacity: 0,
+          y: 20,
+          duration: 0.6,
+          ease: "power4.out",
+        },
+        "-=0.5"
+      );
+      tl.from(
+        this.$refs.pagination,
+        {
+          opacity: 0,
+          x: 20,
+          duration: 0.6,
+          ease: "power4.out",
+        },
+        "-=0.5"
+      );
+    },
+  },
+  mounted() {
+    // Trigger animation after the component is mounted
+    this.animatePageElements();
   },
   watch: {
     isModalOpen(newValue) {

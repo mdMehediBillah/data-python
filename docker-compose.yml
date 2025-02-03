@@ -1,20 +1,17 @@
 version: "3.8"
 
 services:
-  flask:
+  flask_app:
     build:
       context: .
-      dockerfile: server/Dockerfile
-    container_name: flask_app
+      dockerfile: server/Dockerfile # Correct path to Dockerfile
     ports:
-      - "5000:5000"
-    depends_on:
-      - vue
+      - "5000:5000" # Maps container's port 5000 to the host
+    volumes:
+      - ./server:/app # Mounts the local `server` directory into the container
     environment:
-      - FLASK_ENV=development
-      - FLASK_APP=server/app.py
-    networks:
-      - app_network
+      - FLASK_ENV=development # Enables Flask debug mode
+    restart: always # Ensures the container restarts if it crashes
 
   vue:
     build:

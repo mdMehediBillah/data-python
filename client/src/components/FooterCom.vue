@@ -1,35 +1,35 @@
 <template>
   <div class="bg-gray-900 text-white mt-10 flex-grow">
-    <footer class="container mx-auto max-w-screen-xl py-10">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-2">
+    <footer class="container mx-auto max-w-screen-xl py-10 px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
         <!-- Logo Section -->
-        <div class="flex flex-col items-start">
+        <div class="pb-12">
           <img src="../assets/logo-footer.svg" alt="Logo" class="h-12 w-auto" />
         </div>
-
-        <!-- Products Section -->
-        <div>
-          <h3 class="text-lg font-semibold mb-3">Products</h3>
-          <ul class="space-y-2 text-gray-400 text-left">
-            <li><a href="#" class="hover:text-white">Product 1</a></li>
-            <li><a href="#" class="hover:text-white">Product 2</a></li>
-            <li><a href="#" class="hover:text-white">Product 3</a></li>
-          </ul>
-        </div>
-
-        <!-- Use Cases & Resources Section -->
-        <div>
-          <h3 class="text-lg font-semibold mb-3">Use Cases</h3>
-          <ul class="space-y-2 text-gray-400 text-left">
-            <li><a href="#" class="hover:text-white">Industry 1</a></li>
-            <li><a href="#" class="hover:text-white">Industry 2</a></li>
-          </ul>
-          <h3 class="text-lg font-semibold mt-5 mb-3">Resources</h3>
-          <ul class="space-y-2 text-gray-400 text-left">
-            <li><a href="#" class="hover:text-white">Blog</a></li>
-            <li><a href="#" class="hover:text-white">Docs</a></li>
-            <li><a href="#" class="hover:text-white">Help Center</a></li>
-          </ul>
+        <div class="grid grid-cols-2 gap-4 pb-8">
+          <!-- Products Section -->
+          <div>
+            <h3 class="text-lg font-semibold mb-3">Products</h3>
+            <ul class="space-y-2 text-gray-400 text-left">
+              <li><a href="#" class="hover:text-white">Product 1</a></li>
+              <li><a href="#" class="hover:text-white">Product 2</a></li>
+              <li><a href="#" class="hover:text-white">Product 3</a></li>
+            </ul>
+          </div>
+          <!-- Use Cases & Resources Section -->
+          <div>
+            <h3 class="text-lg font-semibold mb-3">Use Cases</h3>
+            <ul class="space-y-2 text-gray-400 text-left">
+              <li><a href="#" class="hover:text-white">Industry 1</a></li>
+              <li><a href="#" class="hover:text-white">Industry 2</a></li>
+            </ul>
+            <h3 class="text-lg font-semibold mt-5 mb-3">Resources</h3>
+            <ul class="space-y-2 text-gray-400 text-left">
+              <li><a href="#" class="hover:text-white">Blog</a></li>
+              <li><a href="#" class="hover:text-white">Docs</a></li>
+              <li><a href="#" class="hover:text-white">Help Center</a></li>
+            </ul>
+          </div>
         </div>
 
         <!-- Newsletter & Social Media Section -->

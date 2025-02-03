@@ -1,13 +1,10 @@
 <template>
   <div
-    class="home-container container mx-auto max-w-screen-xl grid grid-cols-1 md:grid-cols-2 gap-10 items-center mt-24 mb-32"
+    class="home-container container mx-auto max-w-screen-xl grid grid-cols-1 md:grid-cols-2 gap-10 items-center sm:mt-12 mb-32 px-12 min-h-[70vh]"
   >
     <div class="home-text">
       <div>
-        <h1
-          ref="title"
-          class="lg:text-[4rem] font-[300] pb-6 md:pb-4 md:text-[3rem] sm:text-[2rem] p-4"
-        >
+        <h1 ref="title" class="text-[4rem] font-[300] pb-6 md:pb-4 p-4">
           Good decisions come from good data
         </h1>
         <p ref="description">
@@ -83,7 +80,7 @@ export default {
 
 <style scoped>
 .home-container {
-  padding: 6rem 0;
+  padding: 2rem 1rem;
 }
 
 .home-container h1 {

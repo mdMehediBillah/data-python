@@ -7,7 +7,7 @@
     </div>
 
     <!-- Content is displayed after loading -->
-    <div v-else>
+    <div v-else class="px-12 py-6">
       <CountryBarChart />
       <CountryLineChart />
       <CountryPieChart />

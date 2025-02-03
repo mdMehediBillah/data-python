@@ -3,7 +3,10 @@
     <div class="chart-header" ref="barChartHeader">
       <h3 class="text-3xl bold">Carbon % by Country</h3>
     </div>
-    <div class="chart-container" ref="barChartContainer">
+    <div
+      class="chart-container grid grid-cols-1 md:grid-cols-2 gap-4"
+      ref="barChartContainer "
+    >
       <canvas ref="canvas"></canvas>
     </div>
   </div>

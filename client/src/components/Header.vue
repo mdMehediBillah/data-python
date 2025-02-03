@@ -1,51 +1,109 @@
 <template>
-  <div class="header-base">
-    <div class="header-container">
-      <!-- Page Title -->
-      <div class="logo-container">
+  <header class="shadow-md fixed w-full top-0 left-0 z-50 header-base">
+    <div class="container mx-auto px-12 py-3 flex items-center justify-between">
+      <!-- Logo (Fixed Size) -->
+      <div class="flex items-center">
         <img
           src="../assets/logo.svg"
           alt="Logo"
-          class="logo"
+          class="w-[120px] h-auto cursor-pointer"
           @click="$router.push('/')"
         />
-        <!-- <h1
-          class="text-3xl font-bold text-primary border-b-2 border-primary pb-2"
-        >
-          Data Viewer
-        </h1> -->
       </div>
 
-      <!-- Navigation Menu -->
-      <nav class="flex justify-center space-x-4 mt-6">
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-6">
         <router-link
           to="/all-data"
-          class="nav-button"
+          class="nav-link"
           :class="{ 'active-link': isActive('/all-data') }"
         >
           All Data
         </router-link>
         <router-link
           to="/filtered-data"
-          class="nav-button"
+          class="nav-link"
           :class="{ 'active-link': isActive('/filtered-data') }"
         >
           Filtered Data
         </router-link>
         <router-link
           to="/graphical-data"
-          class="nav-button"
+          class="nav-link"
           :class="{ 'active-link': isActive('/graphical-data') }"
         >
           Graphical Data
         </router-link>
       </nav>
+
+      <!-- Mobile Menu Button -->
+      <button class="md:hidden flex flex-col space-y-1" @click="toggleMenu">
+        <span
+          class="w-6 h-0.5 bg-gray-700 transition-all"
+          :class="{ 'rotate-45 translate-y-2': isMenuOpen }"
+        ></span>
+        <span
+          class="w-6 h-0.5 bg-gray-700 transition-all"
+          :class="{ 'opacity-0': isMenuOpen }"
+        ></span>
+        <span
+          class="w-6 h-0.5 bg-gray-700 transition-all"
+          :class="{ '-rotate-45 -translate-y-2': isMenuOpen }"
+        ></span>
+      </button>
     </div>
-  </div>
+
+    <!-- Mobile Navigation -->
+    <nav
+      v-if="isMenuOpen"
+      class="md:hidden absolute top-full left-0 w-full bg-white shadow-lg py-4 flex flex-col space-y-4 items-center"
+    >
+      <router-link
+        to="/all-data"
+        class="nav-link"
+        :class="{ 'active-link': isActive('/all-data') }"
+        @click="closeMenu"
+      >
+        All Data
+      </router-link>
+      <router-link
+        to="/filtered-data"
+        class="nav-link"
+        :class="{ 'active-link': isActive('/filtered-data') }"
+        @click="closeMenu"
+      >
+        Filtered Data
+      </router-link>
+      <router-link
+        to="/graphical-data"
+        class="nav-link"
+        :class="{ 'active-link': isActive('/graphical-data') }"
+        @click="closeMenu"
+      >
+        Graphical Data
+      </router-link>
+    </nav>
+  </header>
+
+  <!-- Spacing Fix: Adds padding so content does not go under the fixed header -->
+  <div class="pt-20"></div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      isMenuOpen: false,
+    };
+  },
+  methods: {
+    toggleMenu() {
+      this.isMenuOpen = !this.isMenuOpen;
+    },
+    closeMenu() {
+      this.isMenuOpen = false;
+    },
+  },
   computed: {
     isActive() {
       return (route) => this.$route.path === route;
@@ -55,54 +113,22 @@ export default {
 </script>
 
 <style scoped>
-.logo-container {
-  display: flex;
-  align-items: center;
+/* Navigation Link Styling */
+.nav-link {
+  @apply text-gray-700 hover:text-blue-500 font-medium transition-colors;
 }
 
-.logo {
-  width: 50%; /* Adjust as needed */
-  height: auto;
-  margin-right: 10px;
-  cursor: pointer;
-}
-.nav-button {
-  padding: 10px 15px;
-  color: var(--color-primary);
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.nav-button:hover {
-  color: var(--color-cta);
-  transform: scale(1.05); /* Slight zoom effect on hover */
-}
-
-/* Active Button Style */
+/* Active Link Styling */
 .active-link {
-  color: var(--color-cta);
-  border-bottom: 2px solid var(--color-primary);
-  font-weight: bold;
-}
-
-.header-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0.2rem 1rem;
+  @apply text-blue-600 font-bold border-b-2 border-blue-600;
 }
 
 .header-base {
   background: rgba(255, 255, 255, 0.4);
   border-radius: 0 0 1rem 1rem;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.01);
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(5px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(137, 210, 252, 0.726);
 }
 </style>

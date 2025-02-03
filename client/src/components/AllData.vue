@@ -1,5 +1,5 @@
 <template>
-  <div class="pb-40 min-h-[100vh]">
+  <div class="pb-40 min-h-[70vh] px-12 py-6">
     <div class="container-header" ref="header">
       <div>
         <h3 class="text-3xl bold">All Data</h3>

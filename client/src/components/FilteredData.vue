@@ -255,6 +255,10 @@ export default {
   text-overflow: ellipsis;
   text-align: center;
   color: var(--color-text-dark);
+  cursor: pointer;
+}
+.allDataBody:hover {
+  background-color: #f0f0f0;
 }
 tr:nth-child(even) {
   background-color: #bfced1;

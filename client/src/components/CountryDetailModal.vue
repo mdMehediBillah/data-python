@@ -78,6 +78,24 @@ export default {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
+.modal-content::-webkit-scrollbar {
+  width: 10px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: #e0e0e0; /* Softer background */
+  border-radius: 5px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #0773bb, #35746b); /* Cool gradient */
+  border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #055d8a, #245a48);
+}
+
 /* 🟡 Header Text */
 .modal-content h3 {
   font-size: 1.5rem;

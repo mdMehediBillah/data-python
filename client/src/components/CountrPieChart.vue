@@ -1,13 +1,29 @@
 <template>
   <div class="pb-16">
+    <!-- Chart Header -->
     <div class="chart-header" ref="barChartHeader">
       <h3 class="text-3xl bold">Carbon % by Country</h3>
     </div>
+
+    <!-- Chart Container -->
     <div
       class="chart-container grid grid-cols-1 md:grid-cols-2 gap-4"
-      ref="barChartContainer "
+      ref="barChartContainer"
     >
       <canvas ref="canvas"></canvas>
+    </div>
+
+    <!-- Modal for Showing Carbon Content Data -->
+    <div v-if="clickedData" class="modal-overlay" @click="closeModal">
+      <div class="modal" @click.stop>
+        <h4>Details:</h4>
+        <p><strong>Country:</strong> {{ clickedData.country }}</p>
+        <p>
+          <strong>Carbon Content Percentage:</strong>
+          {{ clickedData.carbonContent }}%
+        </p>
+        <button class="close-btn" @click="closeModal">Close</button>
+      </div>
     </div>
   </div>
 </template>
@@ -23,6 +39,11 @@ Chart.register(...registerables);
 export default {
   computed: {
     ...mapGetters(["getFilteredData"]), // Fetch data from Vuex
+  },
+  data() {
+    return {
+      clickedData: null, // Data for the clicked pie chart segment
+    };
   },
   watch: {
     getFilteredData: {
@@ -112,6 +133,24 @@ export default {
               position: "right",
             },
           },
+          // Handle click event to capture clicked segment data
+          onClick: (event, elements) => {
+            if (elements.length > 0) {
+              // Get the index of the clicked segment
+              const clickedElementIndex = elements[0].index;
+              const clickedCountry = labels[clickedElementIndex];
+              const clickedCarbonContent = values[clickedElementIndex];
+
+              // Set the clicked data to display in the modal
+              this.clickedData = {
+                country: clickedCountry,
+                carbonContent: clickedCarbonContent,
+              };
+
+              // Disable background scrolling when modal is open
+              document.body.style.overflow = "hidden";
+            }
+          },
         },
       });
     },
@@ -125,16 +164,13 @@ export default {
         ease: "power4.out",
       });
       // Animate the table wrapper element with overlap
-      tl.from(
-        this.$refs.barChartContainer,
-        {
-          opacity: 0,
-          x: 20,
-          duration: 0.8,
-          ease: "power4.out",
-        },
-        "-=0.5"
-      );
+    },
+    // Method to close the modal when clicking outside of it or on the close button
+    closeModal() {
+      this.clickedData = null;
+
+      // Enable background scrolling when modal is closed
+      document.body.style.overflow = "auto";
     },
   },
   mounted() {
@@ -146,6 +182,9 @@ export default {
     if (this.chart) {
       this.chart.destroy();
     }
+
+    // Ensure background scrolling is re-enabled before the component is destroyed
+    document.body.style.overflow = "auto";
   },
 };
 </script>
@@ -167,5 +206,46 @@ export default {
   margin-bottom: 1rem;
   margin: 1rem auto;
   padding-top: 2rem;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal */
+.modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: var(--color-text-dark);
+}
+
+/* Close Button */
+.close-btn {
+  background-color: #ff6b6b;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.close-btn:hover {
+  background-color: #ff4d4d;
 }
 </style>

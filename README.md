@@ -22,12 +22,14 @@ https://github.com/mdMehediBillah/data-python/blob/main/Screenshot.png?raw=true
 ✅ Pagination – Easily navigate large datasets
 ✅ Row Click to Open Modal – Displays row details in a popup
 ✅ Tailwind CSS – Responsive & modern styling
+✅ GSAP – Smooth and dynamic animation
 
 📦 Tech Stack
 Frontend (Vue.js)
 Vue 3
 Vuex (State Management)
 Tailwind CSS
+GSAP
 Axios (API calls)
 Backend (Flask)
 Flask (Lightweight Python web framework)
@@ -39,23 +41,27 @@ Flask-RESTful (API development)
 📦 project/
 ┣ 📂 server/ # Flask Backend
 ┃ ┣ 📜 app.py # Main Flask app
-┃ ┣ 📜 database.py # Database models & setup
 ┃ ┣ 📜 routes.py # API Routes
+┃ ┣ 📜 controller.py # Controller
 ┃ ┣ 📜 requirements.txt # Python dependencies
-┃ ┗ 📂 data/ # Sample dataset
+┃ ┗ 📂 uploads/ # Sample dataset
 ┣ 📂 client/ # Vue.js Frontend
 ┃ ┣ 📂 src/
+┃ ┃ ┣ 📂 assets/
+┃ ┃ ┃ ┣ 📜 logo.svg
 ┃ ┃ ┣ 📂 components/
 ┃ ┃ ┃ ┣ 📜 AllData.vue # Main data table
 ┃ ┃ ┃ ┣ 📜 FilteredData.vue # Filtered table with pagination
 ┃ ┃ ┃ ┣ 📜 DetailModal.vue # Reusable modal for row details
-┃ ┃ ┃ ┣ 📜 store.js # Vuex store for state management
+┃ ┃ ┣ 📜 router/
+┃ ┃ ┃ ┣ 📜 index.js # create routes
+┃ ┃ ┃ ┣ 📜 routes.js # create routes path and create element for the path
+┃ ┃ ┣ 📜 store.js # Vuex store for state management
 ┃ ┣ 📜 App.vue # Root component
 ┃ ┣ 📜 main.js # Vue entry file
 ┣ 📜 package.json # Frontend dependencies
 ┣ 📜 README.md # Documentation
 ┗ 📜 .gitignore
-
 
 📝 TODO & Future Enhancements
 ✅ Add CSV/Excel Export functionality

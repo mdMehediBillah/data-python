@@ -11,6 +11,7 @@
       <CountryBarChart />
       <CountryLineChart />
       <CountryPieChart />
+      <!-- <BarChart /> -->
       <router-view></router-view>
     </div>
   </div>
@@ -21,12 +22,14 @@ import { mapGetters } from "vuex";
 import CountryBarChart from "./CountryBarChart.vue";
 import CountryLineChart from "./CountryLineChart.vue";
 import CountryPieChart from "./CountrPieChart.vue";
+// import BarChart from "./BarChart.vue";
 
 export default {
   components: {
     CountryBarChart,
     CountryLineChart,
     CountryPieChart,
+    // BarChart,
   },
   computed: {
     ...mapGetters(["isLoading"]), // ✅ Get loading state from Vuex

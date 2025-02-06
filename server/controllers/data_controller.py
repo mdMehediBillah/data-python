@@ -25,9 +25,6 @@
 #         raise Exception(f"Error: {str(e)}")
 
 
-
-
-
 import os
 import pandas as pd
 import boto3

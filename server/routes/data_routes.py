@@ -2,7 +2,7 @@ import os
 from flask import Blueprint, jsonify, request
 from controllers.data_controller import get_data_from_excel
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # Get the current directory
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # Get the parent directory
 FILEPATH = os.path.join(BASE_DIR, "uploads", "TestData.xlsx")  # Corrected absolute path
 print(f"Trying to load data from: {FILEPATH}")  # Debugging log
 

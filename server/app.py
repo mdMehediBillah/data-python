@@ -30,7 +30,7 @@ app.register_blueprint(data_routes)
 # Home route definition
 @app.route('/')
 def home():
-    return "Welcome to the Flask API. Access the data at /api/data."
+    return "Welcome to the Flask API. Access the data at /api/v1/data."
 
 if __name__ == '__main__':
     app.run(debug=True)

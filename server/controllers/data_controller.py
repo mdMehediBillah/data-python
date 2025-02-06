@@ -34,6 +34,15 @@ S3_BUCKET_NAME = os.getenv("S3_BUCKET_NAME")
 S3_OBJECT_NAME = "TestData.xlsx"
 LOCAL_FILE_PATH = "uploads/TestData.xlsx"
 
+if os.path.exists(LOCAL_FILE_PATH):
+    print("✅ File found! Reading from:", LOCAL_FILE_PATH)
+    df = pd.read_excel(LOCAL_FILE_PATH)
+    print("Data in memory:", df.head())
+else:
+    print("❌ File NOT found! Check if data is coming from somewhere else.")
+    df = pd.DataFrame()  # Empty DataFrame
+
+
 def download_from_s3(bucket_name, object_name, file_path):
     """Download a file from S3 to local storage."""
     s3 = boto3.client("s3")

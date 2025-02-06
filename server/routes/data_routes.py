@@ -4,6 +4,9 @@ from controllers.data_controller import get_data_from_excel
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # Get the current directory
 FILEPATH = os.path.join(BASE_DIR, "uploads", "TestData.xlsx")  # Corrected absolute path
+print(f"Trying to load data from: {FILEPATH}")  # Debugging log
+
+
 
 data_routes = Blueprint("data_routes", __name__)
 
@@ -26,3 +29,11 @@ def get_countries():
         return jsonify({"countries": unique_countries})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+
+
+    
+
+# @data_routes.route('/api/v1/countries', methods=['GET'])
+# def get_countries():
+#     return jsonify([{"name": "USA", "code": "US"}, {"name": "India", "code": "IN"}])  # Hardcoded data

@@ -1,27 +1,28 @@
-
+import os
 from flask import Blueprint, jsonify, request
 from controllers.data_controller import get_data_from_excel
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # Get the current directory
+FILEPATH = os.path.join(BASE_DIR, "uploads", "TestData.xlsx")  # Corrected absolute path
+print(f"Trying to load data from: {FILEPATH}")  # Debugging log
+
+
+
 data_routes = Blueprint("data_routes", __name__)
 
-# Data file path
-FILEPATH = "uploads/TestData.xlsx"  
-
-
-# Get data from Excel file
 @data_routes.route("/api/v1/data", methods=["GET"])
 def get_data():
-    country = request.args.get("country")  # Get country from query parameter
+    country = request.args.get("country")  
 
     try:
         data, columns, _ = get_data_from_excel(FILEPATH, country)
         return jsonify({"columns": columns, "data": data})
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error": str(e)}), 5000
+    
 
-
-# Get unique countries
-@data_routes.route("/api/countries", methods=["GET"])
+    # Get unique countries
+@data_routes.route("/api/v1/countries", methods=["GET"])
 def get_countries():
     try:
         _, _, unique_countries = get_data_from_excel(FILEPATH)

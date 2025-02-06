@@ -1,3 +1,4 @@
 # Ignore Excel temporary files
 ~$*
+.env
 

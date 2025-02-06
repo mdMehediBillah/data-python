@@ -50,7 +50,7 @@ export default {
 </script>
 
 <style scoped>
-/* 🟣 Modal Overlay */
+/*Modal Overlay */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -64,12 +64,12 @@ export default {
   z-index: 1000;
 }
 
-/* ⚪ Modal Content */
+/*Modal Content */
 .modal-content {
   background-color: var(--color-bg-light);
   color: var(--color-text-dark);
   text-align: left;
-  width: 90%; /* Adjust width */
+  width: 90%;
   max-width: 1400px; /* Limit maximum width */
   max-height: 90vh; /* Ensures it doesn't exceed viewport */
   overflow-y: auto; /* Enables vertical scrolling */

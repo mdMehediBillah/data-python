@@ -5,3 +5,4 @@ gunicorn
 flask_cors
 boto3
 python-dotenv
+numpy==2.2.2

@@ -2,15 +2,19 @@
   <div class="pb-40 min-h-[70vh] px-12 py-6">
     <!-- Header -->
     <div
-      class="container-header grid grid-cols-1 md:grid-cols-2 gap-4 items-center"
+      class="grid grid-cols-1 md:grid-cols-1 gap-4 items-center justify-between mb-4 container-header"
       ref="header"
     >
-      <h3 class="text-3xl bold">All Data</h3>
+      <div class="">
+        <h3 class="text-3xl bold">All Data</h3>
+      </div>
 
       <!-- Filters & Sorting Section -->
-      <div class="flex gap-4">
+      <div
+        class="grid grid-cols-1 md:grid-cols-3 gap-3 items-center justify-between"
+      >
         <!-- Column Selection -->
-        <div class="relative">
+        <div class="relative flex justify-start">
           <button
             @click="toggleFilter"
             :style="{
@@ -18,7 +22,7 @@
                 ? 'red'
                 : 'var(--color-brand-light)',
             }"
-            class="filter-btn text-white px-4 py-2 rounded-md transition-all"
+            class="filter-btn text-white px-4 py-2 rounded-md transition-all w-44"
           >
             {{ showColumnFilter ? "Close Filter" : "Filter Columns" }}
           </button>
@@ -56,9 +60,9 @@
         </div>
 
         <!-- Country Filter -->
-        <div class="flex items-center gap-2">
-          <label>Filter Country:</label>
-          <select v-model="selectedCountry" class="select-country">
+        <div class="flex items-center gap-2 w-full">
+          <label class="w-44">Filter Country:</label>
+          <select v-model="selectedCountry" class="select-country w-full">
             <option value="">All</option>
             <option
               v-for="country in countryList"
@@ -71,9 +75,9 @@
         </div>
 
         <!-- Sorting Dropdown -->
-        <div class="flex items-center gap-2">
-          <label>Sort by:</label>
-          <select v-model="sortKey" class="select-sort">
+        <div class="flex items-center gap-2 w-full">
+          <label class="w-24">Sort by:</label>
+          <select v-model="sortKey" class="select-sort w-full">
             <option value="none">None</option>
             <option value="carbonContent">Carbon Content</option>
             <option value="globalWarmingPotential">
@@ -144,6 +148,7 @@ import CountryDetailModal from "./CountryDetailModal.vue";
 
 export default {
   components: { CountryDetailModal },
+  name: "AllData",
   data() {
     return {
       selectedColumns: [], // Stores selected columns
@@ -274,7 +279,8 @@ export default {
   max-width: 900px;
   text-align: left;
   border-radius: 1rem;
-  left: -150px;
+  left: 150px;
+  top: 50px;
 }
 
 /* Table Styling */
@@ -387,8 +393,6 @@ tr:nth-child(even) {
 }
 
 .container-header {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
   max-width: 1280px;

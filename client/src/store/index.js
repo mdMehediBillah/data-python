@@ -114,7 +114,7 @@ const store = createStore({
       try {
         commit("setLoading", true);
 
-        const response = await axios.get(`${config.API_BASE_URL}/data`);
+        const response = await axios.get(`${config.API_BASE_URL}/api/v1/data`);
 
         if (response.data && response.data.data && response.data.columns) {
           commit("setData", response.data);

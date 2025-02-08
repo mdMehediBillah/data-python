@@ -35,9 +35,9 @@ S3_OBJECT_NAME = "TestData.xlsx"
 LOCAL_FILE_PATH = "uploads/TestData.xlsx"
 
 if os.path.exists(LOCAL_FILE_PATH):
-    print("✅ File found! Reading from:", LOCAL_FILE_PATH)
+    # print("✅ File found! Reading from:", LOCAL_FILE_PATH)
     df = pd.read_excel(LOCAL_FILE_PATH)
-    print("Data in memory:", df.head())
+    # print("Data in memory:", df.head())
 else:
     print("❌ File NOT found! Check if data is coming from somewhere else.")
     df = pd.DataFrame()  # Empty DataFrame

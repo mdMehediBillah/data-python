@@ -10,7 +10,7 @@ This project is a Full-Stack Web Application built with Vue.js (frontend) and Fl
 - Pagination for large datasets
 - Row click to open a detailed modal
 
-## 🗂️ Screenshot
+## 🛂 Screenshot
 ![Screenshot](https://github.com/mdMehediBillah/data-python/blob/main/Screenshot.png?raw=true)
 
 ## 🚀 Features
@@ -40,38 +40,43 @@ This project is a Full-Stack Web Application built with Vue.js (frontend) and Fl
 ## 📂 Project Structure
 
 ```
-📦 project/
-┣ 📂 server/ # Flask Backend
-┃ ┣ 📜 app.py # Main Flask app
-┃ ┣ 📜 routes.py # API Routes
-┃ ┣ 📜 controller.py # Controller
-┃ ┣ 📜 requirements.txt # Python dependencies
-┃ ┣ 📜 Dockerfile # Docker configuration for backend
-┃ ┗ 📂 uploads/ # Sample dataset
+📎 project/
+┣ 📚 server/ # Flask Backend
+┃ ┣ 📝 app.py # Main Flask app
+┃ ┣ 📝 routes.py # API Routes
+┃ ┣ 📝 controller.py # Controller
+┃ ┣ 📝 requirements.txt # Python dependencies
+┃ ┣ 📝 Dockerfile # Docker configuration for backend
+┃ ┗ 📚 uploads/ # Sample dataset
 
-┣ 📂 client/ # Vue.js Frontend
-┃ ┣ 📂 src/
-┃ ┃ ┣ 📂 assets/
-┃ ┃ ┃ ┣ 📜 logo.svg
-┃ ┃ ┣ 📂 components/
-┃ ┃ ┃ ┣ 📜 AllData.vue # Main data table
-┃ ┃ ┃ ┣ 📜 FilteredData.vue # Filtered table with pagination
-┃ ┃ ┃ ┣ 📜 DetailModal.vue # Reusable modal for row details
-┃ ┃ ┣ 📜 router/
-┃ ┃ ┃ ┣ 📜 index.js # Create routes
-┃ ┃ ┃ ┣ 📜 routes.js # Define route paths and components
-┃ ┃ ┣ 📜 store.js # Vuex store for state management
-┃ ┣ 📜 App.vue # Root component
-┃ ┣ 📜 main.js # Vue entry file
-┃ ┣ 📜 Dockerfile # Docker configuration for frontend
-┣ 📜 package.json # Frontend dependencies
-┣ 📜 docker-compose.yml # Docker Compose configuration
-┣ 📜 tests/ # Unit and integration tests
-┣ 📜 README.md # Documentation
-┗ 📜 .gitignore
+┣ 📚 client/ # Vue.js Frontend
+┃ ┣ 📚 src/
+┃ ┃ ┣ 📚 assets/
+┃ ┃ ┃ ┣ 📝 logo.svg
+┃ ┃ ┣ 📚 components/
+┃ ┃ ┃ ┣ 📝 AllData.vue # Main data table
+┃ ┃ ┃ ┣ 📝 FilteredData.vue # Filtered table with pagination
+┃ ┃ ┃ ┣ 📝 DetailModal.vue # Reusable modal for row details
+┃ ┃ ┣ 📚 router/
+┃ ┃ ┃ ┣ 📝 index.js # Create routes
+┃ ┃ ┃ ┣ 📝 routes.js # Define route paths and components
+┃ ┃ ┣ 📝 store.js # Vuex store for state management
+┃ ┣ 📝 App.vue # Root component
+┃ ┣ 📝 main.js # Vue entry file
+┃ ┣ 📝 Dockerfile # Docker configuration for frontend
+┣ 📝 package.json # Frontend dependencies
+┣ 📝 docker-compose.yml # Docker Compose configuration
+┣ 📚 tests/ # Unit and integration tests
+┣ 📝 README.md # Documentation
+┗ 📝 .gitignore
 ```
 
-## 📝 TODO & Future Enhancements
+## 📝 Deployment
+
+- **Backend** (Flask): [https://data-python.onrender.com](https://data-python.onrender.com)
+- **Frontend** (Vue.js): [https://carbondata.netlify.app/](https://carbondata.netlify.app/)
+
+## 📆 TODO & Future Enhancements
 ✅ Expand data visualization capabilities  
 ✅ Improve mobile responsiveness  
 ✅ Implement filtering function for charts  

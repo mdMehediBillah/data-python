@@ -5,85 +5,87 @@
       class="grid grid-cols-1 md:grid-cols-1 gap-4 items-center justify-between mb-4 container-header"
       ref="header"
     >
-      <div class="">
-        <h3 class="text-3xl bold">All Data</h3>
-      </div>
-
       <!-- Filters & Sorting Section -->
       <div
-        class="grid grid-cols-1 md:grid-cols-3 gap-3 items-center justify-between"
+        class="grid grid-cols-1 md:grid-cols-2 gap-3 items-center justify-between"
       >
-        <!-- Column Selection -->
-        <div class="relative flex justify-start">
-          <button
-            @click="toggleFilter"
-            :style="{
-              backgroundColor: showColumnFilter
-                ? 'red'
-                : 'var(--color-brand-light)',
-            }"
-            class="filter-btn text-white px-4 py-2 rounded-md transition-all w-44"
-          >
-            {{ showColumnFilter ? "Close Filter" : "Filter Columns" }}
-          </button>
+        <div class="">
+          <h3 class="text-3xl bold">All Data</h3>
+        </div>
 
-          <!-- Column Filter Panel -->
-          <div
-            v-if="showColumnFilter"
-            ref="filterPanel"
-            class="column-filter-panel bg-white shadow-lg p-4 rounded-md w-64"
-          >
-            <h4 class="font-semibold text-lg mb-3">Select Columns</h4>
-            <div class="column-selection flex flex-row flex-wrap gap-3">
-              <label
-                v-for="col in allColumns"
-                :key="col"
-                class="flex items-center gap-2 bg-gray-100 p-2 rounded-md text-sm max-w-52"
-              >
-                <input
-                  type="checkbox"
-                  v-model="selectedColumns"
-                  :value="col"
-                  :disabled="
-                    col === 'country' ||
-                    col === 'carbonContent' ||
-                    col === 'flowName' ||
-                    col === 'CAS' ||
-                    col === 'processName'
-                  "
-                  class="w-4 h-4 accent-blue-500"
-                />
-                <span class="text-gray-800">{{ col }}</span>
-              </label>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Column Selection -->
+          <div class="relative flex justify-end">
+            <button
+              @click="toggleFilter"
+              :style="{
+                backgroundColor: showColumnFilter
+                  ? 'red'
+                  : 'var(--color-brand-light)',
+              }"
+              class="filter-btn text-white px-4 py-2 rounded-md transition-all w-44"
+            >
+              {{ showColumnFilter ? "Close Filter" : "Filter Columns" }}
+            </button>
+
+            <!-- Column Filter Panel -->
+            <div
+              v-if="showColumnFilter"
+              ref="filterPanel"
+              class="column-filter-panel bg-white shadow-lg p-4 rounded-md w-64"
+            >
+              <h4 class="font-semibold text-lg mb-3">Select Columns</h4>
+              <div class="column-selection flex flex-row flex-wrap gap-3">
+                <label
+                  v-for="col in allColumns"
+                  :key="col"
+                  class="flex items-center gap-2 bg-gray-100 p-2 rounded-md text-sm max-w-52"
+                >
+                  <input
+                    type="checkbox"
+                    v-model="selectedColumns"
+                    :value="col"
+                    :disabled="
+                      col === 'country' ||
+                      col === 'carbonContent' ||
+                      col === 'flowName' ||
+                      col === 'CAS' ||
+                      col === 'processName'
+                    "
+                    class="w-4 h-4 accent-blue-500"
+                  />
+                  <span class="text-gray-800">{{ col }}</span>
+                </label>
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- Country Filter -->
-        <div class="flex items-center gap-2 w-full">
-          <label class="w-44">Filter Country:</label>
-          <select v-model="selectedCountry" class="select-country w-full">
-            <option value="">All</option>
-            <option
-              v-for="country in countryList"
-              :key="country"
-              :value="country"
-            >
-              {{ country }}
-            </option>
-          </select>
-        </div>
+          <!-- Country Filter -->
+          <!-- <div class="flex items-center gap-2 w-full">
+            <label class="w-44">Filter Country:</label>
+            <select v-model="selectedCountry" class="select-country w-full">
+              <option value="">All</option>
+              <option
+                v-for="country in countryList"
+                :key="country"
+                :value="country"
+              >
+                {{ country }}
+              </option>
+            </select>
+          </div> -->
 
-        <!-- Sorting Dropdown -->
-        <div class="flex items-center gap-2 w-full">
-          <label class="w-24">Sort by:</label>
-          <select v-model="sortKey" class="select-sort w-full">
-            <option value="none">None</option>
-            <option value="carbonContent">Carbon Content</option>
-            <option value="globalWarmingPotential">
-              Global Warming Potential
-            </option>
-          </select>
+          <!-- Sorting Dropdown -->
+          <div class="flex items-center gap-2 w-full">
+            <label class="w-24">Sort by:</label>
+            <select v-model="sortKey" class="select-sort w-full">
+              <option value="none">None</option>
+              <option value="carbonContent">Carbon Content</option>
+              <option value="globalWarmingPotential">
+                Global Warming Potential
+              </option>
+            </select>
+          </div>
         </div>
       </div>
     </div>
@@ -99,15 +101,54 @@
               class="allDataHeader"
               :title="col"
             >
-              {{ col }}
+              <div class="allDataHeader-text">
+                {{ col }}
+              </div>
+              <div class="filter-input">
+                <!-- Dropdown filter for 'country' column -->
+                <select
+                  v-if="col === 'country' || col === 'flowName'"
+                  v-model="columnFilters[col]"
+                  class="filter-dropdown"
+                >
+                  <option value="">All</option>
+                  <option
+                    v-for="option in getUniqueColumnValues(col)"
+                    :key="option"
+                    :value="option"
+                  >
+                    {{ option }}
+                  </option>
+                </select>
+
+                <!-- Text input filter for other columns -->
+                <input
+                  v-else
+                  v-model="columnFilters[col]"
+                  type="text"
+                  placeholder="Filter..."
+                  class="filter-input"
+                />
+              </div>
             </th>
           </tr>
         </thead>
         <tbody>
+          <tr v-if="filteredData.length === 0">
+            <td :colspan="selectedColumns.length" class="bg-orange-100">
+              <div class="flex justify-start">
+                <p class="text-gray-700 w-[50vw] text-3xl font-semibold p-4">
+                  No data available
+                </p>
+              </div>
+            </td>
+          </tr>
+
           <tr
             v-for="row in paginatedData"
             :key="row.id"
             @click="openDetailModal(row)"
+            v-else
           >
             <td
               v-for="col in selectedColumns"
@@ -142,7 +183,6 @@
 
 <script>
 import gsap from "gsap";
-
 import { mapGetters } from "vuex";
 import CountryDetailModal from "./CountryDetailModal.vue";
 
@@ -159,10 +199,15 @@ export default {
       rowsPerPage: 10,
       isModalOpen: false,
       selectedRow: null,
+      columnFilters: {}, // Store filters for each column
     };
   },
   computed: {
     ...mapGetters(["getAllData", "getColumns"]),
+
+    isDataLoaded() {
+      return this.getAllData.length > 0;
+    },
 
     // Get unique list of countries
     countryList() {
@@ -178,12 +223,23 @@ export default {
     filteredData() {
       let data = [...this.getAllData];
 
-      // ✅ Filter by country
+      // Filter by country
       if (this.selectedCountry) {
         data = data.filter((row) => row.country === this.selectedCountry);
       }
 
-      // ✅ Sort data
+      // Apply column filters
+      data = data.filter((row) => {
+        return Object.keys(this.columnFilters).every((col) => {
+          const filterValue = this.columnFilters[col];
+          if (!filterValue) return true; // Skip empty filters
+          return String(row[col])
+            .toLowerCase()
+            .includes(filterValue.toLowerCase());
+        });
+      });
+
+      // Sort data
       if (this.sortKey !== "none") {
         data.sort((a, b) => {
           let valA = a[this.sortKey] ?? "";
@@ -197,7 +253,7 @@ export default {
       return data;
     },
 
-    // ✅ Pagination Logic
+    // Pagination Logic
     totalPages() {
       return Math.ceil(this.filteredData.length / this.rowsPerPage);
     },
@@ -209,7 +265,6 @@ export default {
   methods: {
     toggleFilter(event) {
       this.showColumnFilter = !this.showColumnFilter;
-
       if (this.showColumnFilter) {
         this.$nextTick(() => {
           document.addEventListener("click", this.clickOutside);
@@ -218,7 +273,6 @@ export default {
         document.removeEventListener("click", this.clickOutside);
       }
     },
-
     clickOutside(event) {
       if (
         this.$refs.filterPanel &&
@@ -229,6 +283,14 @@ export default {
         document.removeEventListener("click", this.clickOutside);
       }
     },
+    getUniqueColumnValues(column) {
+      const values = [
+        ...new Set(this.getAllData.map((row) => row[column])),
+      ].filter(Boolean);
+      console.log(`Unique values for ${column}:`, values); // Debugging log
+      return values;
+    },
+
     prevPage() {
       if (this.currentPage > 1) this.currentPage--;
     },
@@ -245,7 +307,6 @@ export default {
     },
     animatePageElements() {
       const tl = gsap.timeline();
-      // Animate header fade-in
       tl.from(this.$refs.header, {
         opacity: 0,
         y: -20,
@@ -254,11 +315,10 @@ export default {
       });
     },
   },
+
   mounted() {
     // Trigger animation after the component is mounted
     this.animatePageElements();
-    // Default columns (always show "country" & "carbonContent")
-    // this.selectedColumns = ["country", "carbonContent"];
     this.selectedColumns = [...this.getColumns];
   },
   beforeUnmount() {
@@ -279,18 +339,26 @@ export default {
   max-width: 900px;
   text-align: left;
   border-radius: 1rem;
-  left: 150px;
+  right: -200px;
   top: 50px;
+}
+
+th,
+td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+tr:nth-child(even) {
+  background-color: #bfced1;
 }
 
 /* Table Styling */
 .table-wrapper {
   width: 100%;
   overflow-x: auto;
-  /* border: 1px solid #ddd; */
-  padding: 5px;
-  background-color: var(--color-bg-light);
   padding: 0.4rem;
+  background-color: var(--color-bg-light);
   border-radius: 0.5rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   max-width: 1280px;
@@ -335,30 +403,6 @@ export default {
   background-color: #f0f0f0;
 }
 
-th,
-td {
-  padding: 10px;
-  border: 1px solid #ddd;
-  text-align: center;
-}
-tr:nth-child(even) {
-  background-color: #bfced1;
-}
-
-/* Filter Button */
-.filter-btn {
-  color: white;
-  padding: 0.5rem 1rem;
-  border: none;
-  cursor: pointer;
-  border-radius: 0.5rem;
-  transition: background-color 0.3s ease-in-out;
-}
-
-.filter-btn:hover {
-  background-color: #0056b3;
-}
-
 /* Pagination */
 .pagination {
   display: flex;
@@ -382,7 +426,6 @@ tr:nth-child(even) {
   background-color: gray;
   cursor: not-allowed;
 }
-
 /* Sorting & Country Filter */
 .select-sort,
 .select-country {
@@ -391,26 +434,48 @@ tr:nth-child(even) {
   background-color: var(--color-brand-light);
   border-radius: 0.4rem;
 }
-
 .container-header {
-  align-items: center;
+  align-items: left;
   margin-bottom: 10px;
   max-width: 1280px;
   margin: 0 auto;
   padding: 3rem 0 1rem;
 }
-
 .allDataHeader {
   background-color: var(--color-primary);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  min-width: 150px;
+}
+
+/* Filter Inputs */
+.filter-input,
+.filter-dropdown {
+  padding: 2px 0.4rem;
+  font-size: 14px;
+  border-radius: 5px;
+  width: 100%;
+  background: rgb(36, 36, 36);
+}
+
+.filter-input input {
+  background: none;
+  border: none;
+}
+.filter-input input :active {
+  border: none;
+}
+.allDataHeader-text {
   color: white;
   font-size: 0.8rem;
   font-weight: bold;
-  text-align: center;
-  padding: 0.8rem 1rem;
-  max-width: 160px;
+  text-align: left;
   line-clamp: 2;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  max-width: 250px;
+  min-width: 160px;
+  margin-bottom: 0.4rem;
 }
 </style>

@@ -7,9 +7,19 @@
 
 // export default config;
 
+// const config = {
+//   API_BASE_URL:
+//     import.meta.env.VITE_API_BASE_URL || "https://data-python.onrender.com",
+// };
+
+// export default config;
+
 const config = {
   API_BASE_URL:
-    import.meta.env.VITE_API_BASE_URL || "https://data-python.onrender.com",
+    typeof process !== "undefined" && process.env.VITE_API_BASE_URL
+      ? process.env.VITE_API_BASE_URL
+      : import.meta.env?.VITE_API_BASE_URL ||
+        "https://data-python.onrender.com",
 };
 
 export default config;

@@ -1,13 +1,14 @@
 import { createStore } from "vuex";
-import analytics from "./analytics"; // Import analytics module
+import analytics from "./analytics.js";
 import axios from "axios";
-import config from "../config";
+import config from "../config.js";
 
 const store = createStore({
   modules: {
     analytics, // ✅ Register analytics store
   },
   state: {
+    allData: [],
     data: [],
     filteredData: [],
     columns: [],
@@ -131,9 +132,10 @@ const store = createStore({
       }
     },
   },
-
   getters: {
-    getAllData: (state) => state.data,
+    getAllData: (state) => {
+      return state.data; // This should be a function returning data
+    },
     getFilteredData: (state) => state.filteredData,
     getColumns: (state) => state.columns,
     getSelectedColumns: (state) => state.selectedColumns,

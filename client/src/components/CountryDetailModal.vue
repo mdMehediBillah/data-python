@@ -21,7 +21,6 @@ export default {
   methods: {
     closeModal() {
       this.$emit("close"); // Emit event to parent to close modal
-      // Optionally, add animation on close (if needed)
       gsap.to(this.$refs.modalContainer, {
         opacity: 0,
         scale: 0.5,
@@ -42,7 +41,10 @@ export default {
   watch: {
     isOpen(newValue) {
       if (newValue) {
-        this.animatePageElements(); // Trigger animation when modal opens
+        document.body.style.overflow = "hidden"; // Disable scrolling
+        this.animatePageElements();
+      } else {
+        document.body.style.overflow = ""; // Restore scrolling
       }
     },
   },

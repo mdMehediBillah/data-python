@@ -39,10 +39,13 @@ export default {
       });
     },
   },
-  watch: {
+ watch: {
     isOpen(newValue) {
       if (newValue) {
-        this.animatePageElements(); // Trigger animation when modal opens
+        document.body.style.overflow = "hidden"; // Disable scrolling
+        this.animatePageElements();
+      } else {
+        document.body.style.overflow = ""; // Restore scrolling
       }
     },
   },
